@@ -1,73 +1,48 @@
-# React + TypeScript + Vite
+# Employee Management System - Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern Single Page Application (SPA) built with React (TypeScript) + Vite for managing companies, departments, employees, and users with role-based access control.
 
-Currently, two official plugins are available:
+![React](https://img.shields.io/badge/React-18-blue)
+![TypeScript](https://img.shields.io/badge/TypeScript-5-blue)
+![Vite](https://img.shields.io/badge/Vite-6-purple)
+![MUI](https://img.shields.io/badge/MUI-6-blue)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+---
 
-## React Compiler
+## 🚀 Features
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **JWT Authentication** – Secure token-based login with auto-refresh  
+- **Role-Based Access Control** – System Admin, HR Manager, Employee views  
+- **Company Management** – Full CRUD with pagination  
+- **Department Management** – Filtered by company with pagination  
+- **Employee Management** – Full CRUD with status toggle and days employed  
+- **User Management** – Create System Admins and HR Managers  
+- **Dashboard** – Real-time analytics and statistics  
+- **Employee Profile** – Read-only profile page for employees  
+- **Toast Notifications** – User-friendly success and error messages  
+- **Multi-Language Ready** – English support with Arabic-ready backend  
+- **Responsive UI** – Built with Material UI components  
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## 📦 Prerequisites
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+- Node.js v18 or higher  
+- npm v9 or higher  
+- Docker  
+- Docker Compose  
+- Backend API running at `http://localhost:8000`
+- The app will be available at http://localhost:5173
+---
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## ⚡ Quick Start (Docker - Recommended)
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+```bash
+# 1. Clone the repository
+git clone https://github.com/AdhamMo1/Employee-Management-System-FrontEnd.git
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+# 2. Go into the project
+cd Employee-Management-System-FrontEnd
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+# 3. Run the app with Docker
+docker-compose up --build
