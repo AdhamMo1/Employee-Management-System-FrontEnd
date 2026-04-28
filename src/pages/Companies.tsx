@@ -141,7 +141,7 @@ export default function Companies() {
           variant="contained"
           startIcon={<AddIcon />}
           onClick={openCreate}
-          sx={{ background: '#1e1e2e' }}
+          sx={{ bgcolor: 'primary.main', '&:hover': { bgcolor: 'primary.dark' } }}
         >
           Add Company
         </Button>
@@ -161,7 +161,7 @@ export default function Companies() {
         <>
           <TableContainer component={Paper} sx={{ borderRadius: 2 }}>
             <Table>
-              <TableHead sx={{ background: '#1e1e2e' }}>
+              <TableHead sx={{ bgcolor: 'primary.main' }}>
                 <TableRow>
                   <TableCell sx={{ color: 'white' }}>#</TableCell>
                   <TableCell sx={{ color: 'white' }}>Name</TableCell>
@@ -243,7 +243,7 @@ export default function Companies() {
             variant="contained"
             onClick={handleSubmit}
             disabled={formLoading}
-            sx={{ background: '#1e1e2e' }}
+            sx={{ bgcolor: 'primary.main', '&:hover': { bgcolor: 'primary.dark' } }}
           >
             {formLoading ? (
               <CircularProgress size={20} color="inherit" />

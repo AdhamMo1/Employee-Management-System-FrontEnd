@@ -19,7 +19,7 @@ export default function Navbar() {
   }
 
   return (
-    <AppBar position="static" sx={{ background: '#1e1e2e' }}>
+    <AppBar position="static" sx={{ bgcolor: 'primary.main' }}>
       <Toolbar sx={{ justifyContent: 'space-between' }}>
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
           <Typography variant="h6" sx={{ mr: 3, fontWeight: 'bold' }}>
@@ -96,7 +96,7 @@ export default function Navbar() {
           <Chip
             label={user.role}
             size="small"
-            sx={{ background: '#444', color: 'white' }}
+            sx={{ bgcolor: 'primary.dark', color: 'white' }}
           />
           <Button
             color="inherit"

@@ -55,7 +55,7 @@ export default function Profile() {
               sx={{
                 width: 72,
                 height: 72,
-                background: '#1e1e2e',
+                bgcolor: 'primary.main',
                 fontSize: 28,
               }}
             >
@@ -82,7 +82,7 @@ export default function Profile() {
           {/* Info Grid */}
           <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
             <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-              <EmailIcon sx={{ color: '#1e1e2e' }} />
+              <EmailIcon color="primary" />
               <Box>
                 <Typography variant="caption" color="text.secondary">
                   Email
@@ -92,7 +92,7 @@ export default function Profile() {
             </Box>
 
             <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-              <PhoneIcon sx={{ color: '#1e1e2e' }} />
+              <PhoneIcon color="primary" />
               <Box>
                 <Typography variant="caption" color="text.secondary">
                   Mobile
@@ -102,7 +102,7 @@ export default function Profile() {
             </Box>
 
             <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-              <LocationOnIcon sx={{ color: '#1e1e2e' }} />
+              <LocationOnIcon color="primary" />
               <Box>
                 <Typography variant="caption" color="text.secondary">
                   Address
@@ -114,7 +114,7 @@ export default function Profile() {
             </Box>
 
             <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-              <BusinessIcon sx={{ color: '#1e1e2e' }} />
+              <BusinessIcon color="primary" />
               <Box>
                 <Typography variant="caption" color="text.secondary">
                   Company
@@ -124,7 +124,7 @@ export default function Profile() {
             </Box>
 
             <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-              <ApartmentIcon sx={{ color: '#1e1e2e' }} />
+              <ApartmentIcon color="primary" />
               <Box>
                 <Typography variant="caption" color="text.secondary">
                   Department
@@ -136,7 +136,7 @@ export default function Profile() {
             </Box>
 
             <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-              <CalendarTodayIcon sx={{ color: '#1e1e2e' }} />
+              <CalendarTodayIcon color="primary" />
               <Box>
                 <Typography variant="caption" color="text.secondary">
                   Hire Date
@@ -146,7 +146,7 @@ export default function Profile() {
             </Box>
 
             <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-              <WorkIcon sx={{ color: '#1e1e2e' }} />
+              <WorkIcon color="primary" />
               <Box>
                 <Typography variant="caption" color="text.secondary">
                   Days Employed

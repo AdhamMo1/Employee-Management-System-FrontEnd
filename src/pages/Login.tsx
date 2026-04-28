@@ -11,8 +11,8 @@ import {
   Alert,
   CircularProgress,
 } from '@mui/material'
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined'
 import toast from 'react-hot-toast'
+import eBenLogo from '../../eBen-Logo.png'
 
 export default function Login() {
   const navigate = useNavigate()
@@ -75,7 +75,7 @@ export default function Login() {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        background: 'linear-gradient(135deg, #1e1e2e 0%, #2d2d44 100%)',
+        background: 'linear-gradient(135deg, #1b5e20 0%, #4caf50 100%)',
       }}
     >
       <Card sx={{ minWidth: 380, borderRadius: 3, boxShadow: 10 }}>
@@ -89,15 +89,16 @@ export default function Login() {
             }}
           >
             <Box
+              component="img"
+              src={eBenLogo}
+              alt="eBen logo"
               sx={{
-                background: '#1e1e2e',
-                borderRadius: '50%',
-                p: 1.5,
+                width: 96,
+                height: 96,
+                objectFit: 'contain',
                 mb: 2,
               }}
-            >
-              <LockOutlinedIcon sx={{ color: 'white', fontSize: 28 }} />
-            </Box>
+            />
             <Typography variant="h5" sx={{ fontWeight: 'bold' }}>
               Employee Management
             </Typography>
@@ -137,7 +138,7 @@ export default function Login() {
               fullWidth
               variant="contained"
               disabled={loading}
-              sx={{ mt: 3, py: 1.2, background: '#1e1e2e' }}
+              sx={{ mt: 3, py: 1.2 }}
             >
               {loading ? (
                 <CircularProgress size={22} color="inherit" />
