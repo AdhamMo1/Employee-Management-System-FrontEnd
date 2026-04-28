@@ -8,6 +8,7 @@ import PersonIcon from '@mui/icons-material/Person'
 import LogoutIcon from '@mui/icons-material/Logout'
 import DashboardIcon from '@mui/icons-material/Dashboard'
 import PeopleAltIcon from '@mui/icons-material/PeopleAlt'
+import eBenLogo from '../../eBen-Logo.png'
 
 export default function Navbar() {
   const navigate = useNavigate()
@@ -22,9 +23,12 @@ export default function Navbar() {
     <AppBar position="static" sx={{ bgcolor: 'primary.main' }}>
       <Toolbar sx={{ justifyContent: 'space-between' }}>
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-          <Typography variant="h6" sx={{ mr: 3, fontWeight: 'bold' }}>
-            EMS
-          </Typography>
+          <Box
+            component="img"
+            src={eBenLogo}
+            alt="eBen logo"
+            sx={{ width: 52, height: 52, objectFit: 'contain', mr: 2 }}
+          />
 
           {(isSystemAdmin || isHRManager) && (
             <Button
