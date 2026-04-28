@@ -71,11 +71,47 @@ export default function Users() {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [passwordError, setPasswordError] = useState('')
   const [role, setRole] = useState('')
   const [companyId, setCompanyId] = useState<number | ''>('')
 
   const validateEmail = (value: string) =>
     /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(value)
+
+  const COMMON_PASSWORDS = new Set([
+    'password',
+    'password123',
+    '12345678',
+    '123456789',
+    'qwerty',
+    'admin',
+    'letmein',
+  ])
+
+  const validateUserPassword = (
+    pw: string,
+    fullName: string,
+    userEmail: string,
+  ): string => {
+    const p = pw ?? ''
+    if (!p.trim()) return 'Password is required'
+    if (p.length < 8) return 'Password must be at least 8 characters'
+    if (/^\d+$/.test(p)) return "Password can’t be entirely numeric"
+
+    const lower = p.toLowerCase()
+    if (COMMON_PASSWORDS.has(lower)) return 'Password is too common'
+
+    const emailLocal = (userEmail.split('@')[0] || '').toLowerCase()
+    const nameCompact = (fullName || '').trim().toLowerCase().replace(/\s+/g, '')
+    if (
+      (emailLocal && emailLocal.length >= 3 && lower.includes(emailLocal)) ||
+      (nameCompact && nameCompact.length >= 3 && lower.includes(nameCompact))
+    ) {
+      return 'Password is too similar to your personal information'
+    }
+
+    return ''
+  }
 
   const availableRoles = isSystemAdmin
     ? [
@@ -110,6 +146,7 @@ export default function Users() {
     setName('')
     setEmail('')
     setPassword('')
+    setPasswordError('')
     setRole(isHRManager ? 'HR_MANAGER' : '')
     setCompanyId(isHRManager ? user.company_id : '')
     setFormError('')
@@ -121,6 +158,7 @@ export default function Users() {
     setName(u.name)
     setEmail(u.email)
     setPassword('')
+    setPasswordError('')
     setRole(u.role)
     setCompanyId(u.company_id || '')
     setFormError('')
@@ -130,6 +168,7 @@ export default function Users() {
   const closeModal = () => {
     setShowModal(false)
     setFormError('')
+    setPasswordError('')
     setEditUser(null)
   }
 
@@ -137,8 +176,11 @@ export default function Users() {
     if (!name.trim()) return setFormError('Name is required')
     if (!email.trim()) return setFormError('Email is required')
     if (!validateEmail(email)) return setFormError('Invalid email format')
-    if (!editUser && !password.trim())
-      return setFormError('Password is required')
+    if (!editUser) {
+      const msg = validateUserPassword(password, name, email)
+      setPasswordError(msg)
+      if (msg) return setFormError(msg)
+    }
     if (!role) return setFormError('Role is required')
 
     try {
@@ -339,7 +381,13 @@ export default function Users() {
               label="Password"
               type="password"
               value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={(e) => {
+                const next = e.target.value
+                setPassword(next)
+                setPasswordError(validateUserPassword(next, name, email))
+              }}
+              error={Boolean(passwordError)}
+              helperText={passwordError}
               margin="normal"
               size="small"
             />

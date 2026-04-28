@@ -65,6 +65,7 @@ export default function Employees() {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [passwordError, setPasswordError] = useState('')
   const [title, setTitle] = useState('')
   const [mobile, setMobile] = useState('')
   const [address, setAddress] = useState('')
@@ -75,6 +76,41 @@ export default function Employees() {
     /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(value)
 
   const validateMobile = (value: string) => /^\+?[0-9\s\-()]{7,20}$/.test(value)
+
+  const COMMON_PASSWORDS = new Set([
+    'password',
+    'password123',
+    '12345678',
+    '123456789',
+    'qwerty',
+    'admin',
+    'letmein',
+  ])
+
+  const validateEmployeePassword = (
+    pw: string,
+    fullName: string,
+    userEmail: string,
+  ): string => {
+    const p = pw ?? ''
+    if (!p.trim()) return 'Password is required'
+    if (p.length < 8) return 'Password must be at least 8 characters'
+    if (/^\d+$/.test(p)) return "Password can’t be entirely numeric"
+
+    const lower = p.toLowerCase()
+    if (COMMON_PASSWORDS.has(lower)) return 'Password is too common'
+
+    const emailLocal = (userEmail.split('@')[0] || '').toLowerCase()
+    const nameCompact = (fullName || '').trim().toLowerCase().replace(/\s+/g, '')
+    if (
+      (emailLocal && emailLocal.length >= 3 && lower.includes(emailLocal)) ||
+      (nameCompact && nameCompact.length >= 3 && lower.includes(nameCompact))
+    ) {
+      return 'Password is too similar to your personal information'
+    }
+
+    return ''
+  }
 
   const fetchEmployees = (p = 1) => {
     setLoading(true)
@@ -115,6 +151,7 @@ export default function Employees() {
     setName('')
     setEmail('')
     setPassword('')
+    setPasswordError('')
     setTitle('')
     setMobile('')
     setAddress('')
@@ -136,6 +173,7 @@ export default function Employees() {
     setName(employee.name)
     setEmail(employee.email)
     setPassword('')
+    setPasswordError('')
     setTitle(employee.title)
     setMobile(employee.mobile)
     setAddress(employee.address)
@@ -154,6 +192,7 @@ export default function Employees() {
   const closeModal = () => {
     setShowModal(false)
     setFormError('')
+    setPasswordError('')
     setEditEmployee(null)
     setDepartments([])
   }
@@ -174,8 +213,11 @@ export default function Employees() {
     if (!name.trim()) return setFormError('Name is required')
     if (!email.trim()) return setFormError('Email is required')
     if (!validateEmail(email)) return setFormError('Invalid email format')
-    if (!editEmployee && !password.trim())
-      return setFormError('Password is required')
+    if (!editEmployee) {
+      const msg = validateEmployeePassword(password, name, email)
+      setPasswordError(msg)
+      if (msg) return setFormError(msg)
+    }
     if (!title.trim()) return setFormError('Title is required')
     if (mobile && !validateMobile(mobile))
       return setFormError('Invalid mobile number')
@@ -391,7 +433,13 @@ export default function Employees() {
               label="Password"
               type="password"
               value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={(e) => {
+                const next = e.target.value
+                setPassword(next)
+                setPasswordError(validateEmployeePassword(next, name, email))
+              }}
+              error={Boolean(passwordError)}
+              helperText={passwordError}
               margin="normal"
               size="small"
             />
